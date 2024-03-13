@@ -17,10 +17,9 @@ async function main(){
     server.app.use(express.json())
     server.app.use('/', index)
     server.start(() => { 
-        console.log(clc.magenta(' ============================================ ')),
+        console.log(clc.blue(' ============================================ ')),
         console.log(clc.yellow(` ======   Server Start at Port :${puerto}   ====== `)),
-        console.log(clc.cyan(` ======         Mongo conected         ====== `)),
-        console.log(clc.magenta(' ============================================ '))
+        console.log(clc.blue(' ============================================ '))
     })    
 }
 

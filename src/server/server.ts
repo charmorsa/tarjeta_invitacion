@@ -1,8 +1,5 @@
-import admin from 'firebase-admin';
 import express from 'express'
 import path from 'path'
-import clc from 'cli-color'
-import { createClient } from 'redis'
 import * as dotenv from 'dotenv'
 
 export default class Server {
@@ -30,11 +27,3 @@ export default class Server {
     }   
 }
 
-export const startServer = () => {
-    const client = createClient({"disableOfflineQueue":true, url:process.env.REDISURL});
-    client.connect()
-    client.on("error",_err=>{})
-    client.on("connect",()=>console.log("info","Redis:",clc.green("online")))
-    client.on("end",()=>console.log("error","redis cerro"))
-    return client
-}
