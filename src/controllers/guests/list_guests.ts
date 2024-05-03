@@ -4,7 +4,7 @@ import {inv} from '../../models/invitados'
 
 export const ListGuests =async (req:Request, res:Response) => {
     try {
-        const result = await inv.find({})
+        const result = await inv.find({estado:true})
         if (result){
             return respJson(res,200,true,{msg:result})
         }else{

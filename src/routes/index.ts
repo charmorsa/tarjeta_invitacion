@@ -10,6 +10,7 @@ import { loginPage } from '../controllers/login'
 import { homePage } from '../controllers/home'
 
 import { validateJwt } from '../middlewares/validateToken.middleware'
+import { SearchGuests } from '../controllers/guests/search_guests'
 
 export const index:Router = Router()
 
@@ -19,4 +20,5 @@ index.post('/Invitados/Agregar', validateJwt, AddGuests)
 index.put('/Invitados/Familiares', validateJwt, AddFamili)
 index.get('/Invitados/Lista', validateJwt, ListGuests)
 index.get('/Administrador/Lista', validateJwt, ListAdmin)
+index.post('/Invitados/CodigoInvitacion', SearchGuests)
 index.get('/', homePage)
