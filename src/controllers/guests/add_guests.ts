@@ -4,9 +4,10 @@ import {inv} from '../../models/invitados'
 
 export const AddGuests =async (req:Request, res:Response) => {
     try {
+        const codigo:string = String(req.body.codigo)
         const nombre:string = String(req.body.nombre)
         const apellido:string = String(req.body.apellido)
-        const result = await new inv({nombre, apellido}).save()
+        const result = await new inv({codigo, nombre, apellido}).save()
         if(result){
             return respJson(res,200,true,{msg:'Carga exitosa'})
         }else{

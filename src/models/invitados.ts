@@ -1,6 +1,8 @@
 import mongoose, { Schema } from "mongoose";
 
 interface familiares {
+    [x: string]: any;
+    findOne(arg0: (f: any) => boolean): unknown;
     nombre: string,
     apellido: string,
     relacion: string,
@@ -8,6 +10,7 @@ interface familiares {
 }
 
 interface invi {
+    codigo: string,
     nombre:string,
     apellido:string,
     estado:boolean,
@@ -15,9 +18,10 @@ interface invi {
 }
 
 const invSchema = new Schema<invi>({
+    codigo:         { type:String, required:[true, 'Codigo']},
     nombre:         { type:String, required:[true, 'Nombre']},
     apellido:       { type:String, required:[true, 'Apellido']},
-    estado:         { type:Boolean, default:true},
+    estado:         { type:Boolean, default:false},
     familiar:       { type:[], required:[false, 'familiares']}
 }, {
     collection: 'Invitados',
