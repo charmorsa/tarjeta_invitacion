@@ -1,26 +1,29 @@
 import { Request, Response } from "express";
 import { inv } from "../../models/invitados";
 import { respJson } from "../../libs/respJson";
+import clc from "cli-color";
+import { sendEmail } from "../../controllers/send.email.controller";
 
 export const ModificarEstadoFamiliar = async (req: Request, res: Response) => {
-  const { codigo, nombre, estado } = req.body;
-
   try {
-    // Actualizar el estado del familiar dentro del invitado en la base de datos
+    const { codigo, estado } = req.body
     const result = await inv.findOneAndUpdate(
-      { codigo, "familiar.nombre": nombre }, // Condición de búsqueda
-      { $set: { "familiar.$.estado": estado } }, // Actualización del estado del familiar
-      { new: true } // Devolver el documento actualizado
+      { "familiar.codigo":codigo },
+      { "familiar.$.estado": estado }
     );
 
-    // Verificar si se encontró y actualizó el documento
-    if (!result) {
-      return res.status(404).json({ error: "Invitado o familiar no encontrado" });
-    }
-
-    res.json({ mensaje: "Estado del familiar actualizado exitosamente" });
+    if (!result) return respJson(res,400,false,{ msg: "Invitado o familiar no encontrado" })
+    
+    let text = `Se ha modificado el estado de la invitacion a la Boda: "Walrus-Duck".
+    el codigo de invitado es :${codigo}
+    paso a estado: ${estado}
+    gracias por confirmar...`
+    let type = 'Boda: Walrus-Duck'
+    let email = 'natubucher713@gmail.com'
+    sendEmail(email, type, text)
+    return respJson(res,200,true,{ mensaje: "Estado del familiar actualizado exitosamente" })
   } catch (error) {
-    console.error("Error al actualizar estado del familiar:", error);
-    res.status(500).json({ error: "Error interno del servidor" });
+    console.error(clc.red("Error, contactese con el administrador", error))
+    return respJson(res,500,false,{ msg: "Error, contactese con el administrador" })
   }
 };
