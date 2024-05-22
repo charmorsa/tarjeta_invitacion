@@ -2,7 +2,7 @@ import { Request, Response } from 'express'
 import { respJson } from '../../libs/respJson'
 import { inv } from '../../models/invitados'
 import clc from 'cli-color'
-import { generateCode } from '../../controllers/generate.codigo.controller'
+import { generateCode } from '../generate.codigo.controller'
 
 export const AddGuests =async (req:Request, res:Response) => {
     try {
