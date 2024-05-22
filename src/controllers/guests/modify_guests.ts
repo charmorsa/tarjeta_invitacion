@@ -23,7 +23,7 @@ export const Modifyguests = async (req: Request, res: Response) => {
         let email = 'natubucher713@gmail.com'
         sendEmail(email, type, text)
 
-        return respJson(res, 200, true, { msg: 'Estado del familiar actualizado exitosamente' })
+        return respJson(res, 200, true, { msg: 'Estado del invitado actualizado exitosamente' })
     } catch (error) {
         console.error(clc.red('Error, contactese con el administrador', error))
         return respJson(res, 500, false, { msg:'Error, contactese con el administrador'})
