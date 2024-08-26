@@ -2,12 +2,12 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.generateCode = void 0;
 function generateCode() {
-    const fechaActual = new Date();
-    const horas = fechaActual.getHours();
-    const minutos = fechaActual.getMinutes();
-    const segundos = fechaActual.getSeconds();
-    const mili = fechaActual.getMilliseconds();
-    const fecha = String(`${horas.toString(16)}${minutos.toString(16)}${segundos.toString(16)}${mili.toString(16)}`);
+    var fechaActual = new Date();
+    var horas = fechaActual.getHours();
+    var minutos = fechaActual.getMinutes();
+    var segundos = fechaActual.getSeconds();
+    var mili = fechaActual.getMilliseconds();
+    var fecha = String("".concat(horas.toString(16)).concat(minutos.toString(16)).concat(segundos.toString(16)).concat(mili.toString(16)));
     return fecha;
 }
 exports.generateCode = generateCode;

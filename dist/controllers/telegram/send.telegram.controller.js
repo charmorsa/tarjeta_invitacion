@@ -27,36 +27,36 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.enviarMensajes = exports.cargarChatIds = exports.chatIds = void 0;
-const node_telegram_bot_api_1 = __importDefault(require("node-telegram-bot-api"));
-const dotenv_1 = __importDefault(require("dotenv"));
-const fs = __importStar(require("fs"));
+var node_telegram_bot_api_1 = __importDefault(require("node-telegram-bot-api"));
+var dotenv_1 = __importDefault(require("dotenv"));
+var fs = __importStar(require("fs"));
 dotenv_1.default.config();
-const token = String(process.env.tokenTelegram);
-const bot = new node_telegram_bot_api_1.default(token, { polling: true });
+var token = String(process.env.tokenTelegram);
+var bot = new node_telegram_bot_api_1.default(token, { polling: true });
 exports.chatIds = [];
-const cargarChatIds = () => {
+var cargarChatIds = function () {
     if (fs.existsSync('chatIds.json')) {
         exports.chatIds = JSON.parse(fs.readFileSync('chatIds.json', 'utf8'));
     }
 };
 exports.cargarChatIds = cargarChatIds;
-const guardarChatIds = () => {
+var guardarChatIds = function () {
     fs.writeFileSync('chatIds.json', JSON.stringify(exports.chatIds, null, 2));
 };
-const mensaje = 'holaa, te invito a mi boda... bien bañadito y peinadito presentarse el dia 27 de diciembre a las 19:00hs';
-const enviarMensajes = (chatId) => {
-    bot.sendMessage(chatId, mensaje).catch(error => {
-        console.error(`Error al enviar mensaje a ${chatId}:`, error);
+var mensaje = 'holaa, te invito a mi boda... bien bañadito y peinadito presentarse el dia 27 de diciembre a las 19:00hs';
+var enviarMensajes = function (chatId) {
+    bot.sendMessage(chatId, mensaje).catch(function (error) {
+        console.error("Error al enviar mensaje a ".concat(chatId, ":"), error);
     });
 };
 exports.enviarMensajes = enviarMensajes;
-bot.on('message', (msg) => {
-    const chatId = msg.chat.id.toString();
+bot.on('message', function (msg) {
+    var chatId = msg.chat.id.toString();
     if (!exports.chatIds.includes(chatId)) {
         exports.chatIds.push(chatId);
         guardarChatIds();
     }
     (0, exports.enviarMensajes)(chatId);
-    console.log(`Nuevo chat ID registrado: ${chatId}`);
+    console.log("Nuevo chat ID registrado: ".concat(chatId));
 });
 //# sourceMappingURL=send.telegram.controller.js.map

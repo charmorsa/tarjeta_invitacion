@@ -24,8 +24,8 @@ var __importStar = (this && this.__importStar) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.admin = void 0;
-const mongoose_1 = __importStar(require("mongoose"));
-const adminSchema = new mongoose_1.Schema({
+var mongoose_1 = __importStar(require("mongoose"));
+var adminSchema = new mongoose_1.Schema({
     user: { type: String, required: [true, 'Usuario debe ser de tipo Texto'] },
     password: { type: String, required: [true, 'Contraseña de tipo Texto'] },
     name: { type: String, required: [true, 'Nombre Completo'] }

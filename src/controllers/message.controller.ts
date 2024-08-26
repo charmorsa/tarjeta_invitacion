@@ -1,6 +1,6 @@
 import { Request, Response } from "express"
 import { respJson } from "../libs/respJson"
-import { inv } from "models/invitados"
+import { inv } from "../models/invitados"
 
 export const messGuests =async (req:Request, res:Response) => {
     try {

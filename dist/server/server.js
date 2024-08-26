@@ -26,27 +26,36 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const express_1 = __importDefault(require("express"));
-const path_1 = __importDefault(require("path"));
-const dotenv = __importStar(require("dotenv"));
-class Server {
-    constructor(port) {
+var express_1 = __importDefault(require("express"));
+var path_1 = __importDefault(require("path"));
+var dotenv = __importStar(require("dotenv"));
+var cors_1 = __importDefault(require("cors"));
+var Server = /** @class */ (function () {
+    function Server(port) {
         this.port = port;
         this.app = (0, express_1.default)();
         this.tokenFireBase = "";
     }
-    static init(port) {
+    Server.init = function (port) {
         return new Server(port);
-    }
-    publicFolder() {
-        const publicPath = path_1.default.resolve(__dirname, '../public');
+    };
+    Server.prototype.publicFolder = function () {
+        var publicPath = path_1.default.resolve(__dirname, '../public');
         this.app.use(express_1.default.static(publicPath));
-    }
-    start(callback) {
+    };
+    Server.prototype.start = function (callback) {
+        var corsOptions = {
+            origin: 'https://nuestra-boda-natuycharly.web.app',
+            methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+            credentials: true,
+            optionsSuccessStatus: 204
+        };
+        this.app.use((0, cors_1.default)(corsOptions));
         this.publicFolder();
         dotenv.config();
         this.app.listen(this.port, callback);
-    }
-}
+    };
+    return Server;
+}());
 exports.default = Server;
 //# sourceMappingURL=server.js.map

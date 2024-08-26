@@ -14,7 +14,7 @@ import { SearchGuests } from '../controllers/guests/search_guests'
 import {SearchCodig} from '../controllers/guests/search_codigo'
 import { Modifyguests } from '../controllers/guests/modify_guests'
 import { ModificarEstadoFamiliar } from '../controllers/guests/modify_familiar'
-import { messGuests } from 'controllers/message.controller'
+import { messGuests } from '../controllers/message.controller'
 
 
 export const index:Router = Router()
