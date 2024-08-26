@@ -35,6 +35,7 @@ export const messGuests =async (req:Request, res:Response) => {
         Nathalie Bucher y Carlos Herrera`
         return respJson(res,200,true,{msg:mess})
     } catch (error) {
+        console.log(error)
         return respJson(res,500,false,{msg:error})
     }
 }
