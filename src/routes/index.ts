@@ -30,4 +30,5 @@ index.post('/Invitados/CodigoInvitacion', SearchCodig)
 index.put('/Invitados/Modificarinvitado',  Modifyguests)
 index.put('/Invitados/Modificarfamiliar', ModificarEstadoFamiliar)
 index.post('/Administrador/Message', validateJwt, messGuests)
+
 index.get('/', homePage)
