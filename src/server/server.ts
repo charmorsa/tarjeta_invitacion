@@ -23,7 +23,7 @@ export default class Server {
 
     start(callback: () => void) {
         const corsOptions = {
-            origin: '*',
+            origin: 'https://nuestra-boda-natuycharly.web.app',
             methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
             credentials: true,
             optionsSuccessStatus: 204
