@@ -14,6 +14,7 @@ import { SearchGuests } from '../controllers/guests/search_guests'
 import {SearchCodig} from '../controllers/guests/search_codigo'
 import { Modifyguests } from '../controllers/guests/modify_guests'
 import { ModificarEstadoFamiliar } from '../controllers/guests/modify_familiar'
+import { messGuests } from 'controllers/message.controller'
 
 
 export const index:Router = Router()
@@ -28,4 +29,5 @@ index.post('/Invitados/BucarInvitado', validateJwt, SearchGuests)
 index.post('/Invitados/CodigoInvitacion', SearchCodig)
 index.put('/Invitados/Modificarinvitado',  Modifyguests)
 index.put('/Invitados/Modificarfamiliar', ModificarEstadoFamiliar)
+index.post('/Administrador/Message', validateJwt, messGuests)
 index.get('/', homePage)

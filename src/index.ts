@@ -16,7 +16,7 @@ async function main(){
     server.app.use(cors())
     server.app.use(express.json())
     server.app.use('/', index)
-    server.start(() => { 
+    server.start(() => {
         console.log(clc.blue(' ============================================ ')),
         console.log(clc.yellow(` ======   Server Start at Port :${puerto}   ====== `)),
         console.log(clc.blue(' ============================================ '))
