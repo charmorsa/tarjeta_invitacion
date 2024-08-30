@@ -1,10 +1,26 @@
 export function generateCode() {
-    const fechaActual = new Date();
+    const fechaActual = new Date()
+    const dia = fechaActual.getDay()
     const horas = fechaActual.getHours()
     const minutos = fechaActual.getMinutes()
     const segundos = fechaActual.getSeconds()
     const mili = fechaActual.getMilliseconds()
 
-    const fecha = String(`${horas.toString(16)}${minutos.toString(16)}${segundos.toString(16)}${ mili.toString(16)}`)
-    return fecha
+    const fecha = Number(`${dia}${horas}${minutos}${segundos}${mili}`)
+    const code = convertirANumeroAlfanumerico(fecha)
+    return code
+}
+
+
+function convertirANumeroAlfanumerico(valor: number): string {
+    const caracteres = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    const base = caracteres.length;
+    let resultado = '';
+    
+    do {
+        resultado = caracteres.charAt(valor % base) + resultado;
+        valor = Math.floor(valor / base);
+    } while (valor > 0);
+    
+    return resultado;
 }
