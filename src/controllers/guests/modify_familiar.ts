@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { inv } from "../../models/invitados";
 import { respJson } from "../../libs/respJson";
 import clc from "cli-color";
-import { sendEmail } from "../send.email.controller";
+import { sendEmail } from "../../config/send.email.controller";
 
 export const ModificarEstadoFamiliar = async (req: Request, res: Response) => {
   try {

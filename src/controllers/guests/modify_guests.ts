@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { respJson } from "../../libs/respJson";
 import { inv } from "../../models/invitados";
 import clc from "cli-color";
-import { sendEmail } from "../send.email.controller";
+import { sendEmail } from "../../config/send.email.controller";
 
 export const Modifyguests = async (req: Request, res: Response) => {
     try {
