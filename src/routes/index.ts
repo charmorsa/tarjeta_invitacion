@@ -1,36 +1,10 @@
 import { Router } from 'express'
-
-import { ListAdmin } from '../controllers/admin/list.admin'
-import { AddAdmin } from '../controllers/admin/add.admin'
-import { AddFamili } from '../controllers/guests/add_familiar'
-import { ListGuests } from '../controllers/guests/list_guests'
-import { AddGuests } from '../controllers/guests/add_guests'
-
-import { loginPage } from '../controllers/login'
+import { admin } from './admin.router'
 import { homePage } from '../controllers/home'
-
-import { validateJwt } from '../middlewares/validateToken.middleware'
-import { SearchGuests } from '../controllers/guests/search_guests'
-import {SearchCodig} from '../controllers/guests/search_codigo'
-import { Modifyguests } from '../controllers/guests/modify_guests'
-import { ModificarEstadoFamiliar } from '../controllers/guests/modify_familiar'
-import { messGuests } from '../config/message.controller'
-import { saldos } from '../controllers/saldo'
+import { guests } from './guest.router'
 
 export const index:Router = Router()
 
-index.post('/Administrador/IniciarSesion', loginPage)
-index.post('/Administrador/Agregar', validateJwt, AddAdmin)
-index.post('/Invitados/Agregar', validateJwt, AddGuests)
-index.put('/Invitados/Familiares', validateJwt, AddFamili)
-index.get('/Invitados/Lista', validateJwt, ListGuests)
-index.get('/Administrador/Lista', validateJwt, ListAdmin)
-index.post('/Invitados/BucarInvitado', validateJwt, SearchGuests)
-index.post('/Invitados/CodigoInvitacion', SearchCodig)
-index.put('/Invitados/Modificarinvitado',  Modifyguests)
-index.put('/Invitados/Modificarfamiliar', ModificarEstadoFamiliar)
-index.post('/Administrador/Message', validateJwt, messGuests)
-
 index.get('/', homePage)
-
-index.post('/saldo', saldos)
+index.use('/Administrador', admin)
+index.use('/Invitados', guests)

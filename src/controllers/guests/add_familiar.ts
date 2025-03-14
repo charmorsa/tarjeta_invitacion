@@ -3,7 +3,8 @@ import { respJson } from "../../libs/respJson"
 import { inv } from "../../models/invitados"
 import clc from "cli-color"
 import { generateCode } from "../../config/generate.codigo.controller"
-export const AddFamili = async (req:Request, res:Response) => {
+
+export const AddFamily = async (req:Request, res:Response) => {
     try {
         const codigo:string= req.body.codigo
         const familiar = req.body.familiar
@@ -22,10 +23,10 @@ export const AddFamili = async (req:Request, res:Response) => {
             { $push: { familiar } }
         )
         if(!up) return respJson(res,400,false,{msg:'Error al agregar familiar'})
-
+        
         return respJson(res,200,true,{datos:'exito al cargar familiar'})
     } catch (error) {
-        console.error(clc.red('Error, contactese con el administrador', error))
+        console.error(clc.red('Error API AddFamily', error))
         return respJson(res,500,false,{msg:'Error, contactese con el administrador'})
     }
 }
