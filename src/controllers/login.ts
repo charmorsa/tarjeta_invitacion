@@ -4,7 +4,7 @@ import { respJson } from "../libs/respJson"
 import {admin} from "../models/admin"
 import {generateJWT} from '../libs/jwt'
 import clc from "cli-color"
-import { sendEmail } from "config/send.email.controller"
+import { sendMessage } from "../config/rabbit/sent.message"
 
 export const loginPage =async (req:Request, res:Response) => {
     try {
@@ -17,10 +17,17 @@ export const loginPage =async (req:Request, res:Response) => {
         const token = await generateJWT(userSearch)
         if(!token) return respJson(res,400,false,{ msg: 'Token no Generado' }) 
 
-        let text = `se ha Iniciado Sesion en el usuario ${user}, el dia ${fecha} gracias por utilizar nuestro sistema Walrus-Duck`
-        let type = 'Boda: Walrus-Duck'
-        let email = 'example@gmail.com'
-        await sendEmail(email, type, text)
+        let text = [ 
+            `se ha Iniciado Sesion en el usuario ${user}`, 
+            `Fecha ${fecha}`,
+            `Gracias por utilizar nuestro sistema Walrus-Duck`,
+            `2025`
+        ]
+        let type = 'Boda: Walrus & Duck'
+        let email = '10.0charly@gmail.com'
+        let messages = `${email}_${type}_${text}`
+        
+        await sendMessage('cola', messages)
         return respJson(res,200,true,{ token, user: {id: userSearch._id, name: userSearch.name} })
     } catch (error) {
         console.error(clc.red('Error API Login ',error))

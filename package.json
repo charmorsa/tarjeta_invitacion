@@ -12,6 +12,7 @@
     "author": "",
     "license": "ISC",
     "dependencies": {
+        "amqplib": "^0.10.5",
         "axios": "^0.21.4",
         "bcrypt": "^5.0.0",
         "cli-color": "^2.0.3",
@@ -24,6 +25,7 @@
         "typescript": "^5.4.5"
     },
     "devDependencies": {
+        "@types/amqplib": "^0.10.7",
         "@types/axios": "^0.14.0",
         "@types/bcrypt": "^3.0.0",
         "@types/cli-color": "^2.0.6",
