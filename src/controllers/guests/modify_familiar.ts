@@ -4,7 +4,7 @@ import { respJson } from "../../libs/respJson";
 import clc from "cli-color";
 import { sendEmail } from "../../config/send.email.controller";
 
-export const ModificarEstadoFamiliar = async (req: Request, res: Response) => {
+export const ModStateFamily = async (req: Request, res: Response) => {
   try {
     const { codigo, estado } = req.body
     const result = await inv.findOneAndUpdate(
@@ -20,10 +20,10 @@ export const ModificarEstadoFamiliar = async (req: Request, res: Response) => {
     gracias por confirmar...`
     let type = 'Boda: Walrus-Duck'
     let email = 'natubucher713@gmail.com'
-    sendEmail(email, type, text)
+    await sendEmail(email, type, text)
     return respJson(res,200,true,{ mensaje: "Estado del familiar actualizado exitosamente" })
   } catch (error) {
-    console.error(clc.red("Error, contactese con el administrador", error))
+    console.error(clc.red("Error API ModStateFamily ", error))
     return respJson(res,500,false,{ msg: "Error, contactese con el administrador" })
   }
 };

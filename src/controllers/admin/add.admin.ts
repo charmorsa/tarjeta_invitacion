@@ -6,9 +6,9 @@ import clc from "cli-color"
 
 export const AddAdmin =async (req:Request, res:Response) => {
     try {
-        let user:string = String(req.body.user)
-        let password:string = String(req.body.password)
-        let name:string = String(req.body.name)
+        let user:string = req.body.user
+        let password:string = req.body.password
+        let name:string = req.body.name
 
         const ex = await admin.exists({user, name})
         if (ex) return respJson(res,400,false,{msg:'Usuario Existente'})
@@ -18,10 +18,9 @@ export const AddAdmin =async (req:Request, res:Response) => {
         const userDB = await new admin({user, password:hash, name}).save()
 
         if(!userDB) return respJson(res,400,false,{msg:'## Error al crear un usuario nuevo ##'});
-        console.log(clc.cyan('Exito al Cargar', userDB))
         return respJson(res,200,true,{data:'Exito al Cargar', userDB})
     } catch (error) {
-        console.error(clc.red('Error, contactese con el administrador', error))
+        console.error(clc.red('Error API AddAdmin ', error))
         return respJson(res,500,false,{msg:'Error, contactese con el administrador'})
     }
 }

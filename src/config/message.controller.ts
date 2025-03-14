@@ -1,10 +1,11 @@
 import { Request, Response } from "express"
 import { respJson } from "../libs/respJson"
 import { inv } from "../models/invitados"
+import clc from "cli-color"
 
 export const messGuests =async (req:Request, res:Response) => {
     try {
-        const code = req.body.codigo
+        const code:string = req.body.codigo
         const datos = await inv.findOne({codigo:code})
         if(!datos) return respJson(res,400,false,{msg:'No se encontro invitado'})
         const mess = `🎉 ¡Hola ${datos.nombre}! 🎉
@@ -34,7 +35,7 @@ export const messGuests =async (req:Request, res:Response) => {
         Natu y Charly`
         return respJson(res,200,true,{msg:mess})
     } catch (error) {
-        console.log(error)
+        console.error(clc.red('Error mssGuests', error))
         return respJson(res,500,false,{msg:error})
     }
 }

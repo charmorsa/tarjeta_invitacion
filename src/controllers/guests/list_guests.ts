@@ -10,7 +10,7 @@ export const ListGuests =async (req:Request, res:Response) => {
         
         return respJson(res,200,true,{msg:result})
     } catch (error) {
-        console.error(clc.red('Error, contactese con el administrador', error))
+        console.error(clc.red('Error API ListGuests', error))
         return respJson(res,500,false,{msg:'Error, contactese con el administrador'})
     }
 }
