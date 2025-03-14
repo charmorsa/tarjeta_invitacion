@@ -16,5 +16,5 @@ guests.get('/Lista', validateJwt, ListGuests)
 guests.post('/BucarInvitado', validateJwt, SearchGuests)
 
 guests.post('/CodigoInvitacion', SearchCodig)
-guests.put('/Modificarinvitado',  ModifyGuests)
+guests.put('/Modificarinvitado', ModifyGuests)
 guests.put('/Modificarfamiliar', ModStateFamily)

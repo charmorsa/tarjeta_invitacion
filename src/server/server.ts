@@ -2,6 +2,10 @@ import express from 'express'
 import path from 'path'
 import * as dotenv from 'dotenv'
 import cors from 'cors'
+import { createClient } from 'redis'
+import clc from 'cli-color'
+
+dotenv.config()
 
 export default class Server {
     public app: express.Application
@@ -35,3 +39,11 @@ export default class Server {
     }   
 }
 
+export const startServer = () => {
+    const client = createClient({url:process.env.REDISURL});
+    client.connect()
+    client.on("error",_err=>{})
+    client.on("connect",()=>console.log("info","Redis:",clc.green("online")))
+    client.on("end",()=>console.log("error","redis cerro"))
+    return client
+}

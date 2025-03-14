@@ -21,7 +21,7 @@ export async function sendEmail(receptor:string, subject:string, text:any) {
         const imagePath = path.join(__dirname, '../../fondo.png')
         const imageContent = readFileSync(imagePath)
     
-        const texto = text.split(';')
+        const texto = text.split(',')
         const m0 = texto[0] || ""
         const m1 = texto[1] || ""
         const m2 = texto[2] || ""

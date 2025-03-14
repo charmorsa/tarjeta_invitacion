@@ -5,10 +5,19 @@ import {admin} from "../models/admin"
 import {generateJWT} from '../libs/jwt'
 import clc from "cli-color"
 import { sendMessage } from "../config/rabbit/sent.message"
+import { startServer } from '../server/server'
+
+const client = startServer()
 
 export const loginPage =async (req:Request, res:Response) => {
     try {
         const { user, password } = req.body
+
+        const insert = await returnRedisDisplay(user)
+        if(!insert) {
+            inserRedisDisplay(user)
+
+        }else return respJson(res,400,false,{msg:'Por favor, aguarde un minuto'})
         const fecha = new Date()
         const userSearch = await admin.findOne({ user })
         if (!userSearch) return respJson(res,400,false,{ msg: 'Usuario no Existe'}) 
@@ -32,5 +41,32 @@ export const loginPage =async (req:Request, res:Response) => {
     } catch (error) {
         console.error(clc.red('Error API Login ',error))
         return respJson(res,500,false,{msg:'Error, contactese con el administrador'})
+    }
+}
+
+async function inserRedisDisplay(email:string) {
+    try {	
+        const key = 'login:' + email
+        const value = email
+        await client.set(key, value)
+        await client.expire(key, 20)
+    } catch (error) {
+        console.error(clc.red('### Error Redis Insert ###'))
+        console.log(error)
+        console.error(clc.red('### ------------------ ###'))
+        return false
+    }
+}
+
+async function returnRedisDisplay (email:string) {
+    try {
+        const keys = await client.keys(`login:${email}`)
+        if (keys.length == 0) return false
+        return true
+    } catch (error) {
+        console.error(clc.red('### Error Redis Return ###'))
+        console.log(error)
+        console.error(clc.red('### ------------------ ###'))
+        return false
     }
 }

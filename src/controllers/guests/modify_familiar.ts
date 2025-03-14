@@ -2,8 +2,7 @@ import { Request, Response } from "express";
 import { inv } from "../../models/invitados";
 import { respJson } from "../../libs/respJson";
 import clc from "cli-color";
-import { sendEmail } from "../../config/send.email.controller";
-import { sendMessage } from "config/rabbit/sent.message";
+import { sendMessage } from "../../config/rabbit/sent.message";
 
 export const ModStateFamily = async (req: Request, res: Response) => {
   try {

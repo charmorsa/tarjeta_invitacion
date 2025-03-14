@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { respJson } from "../../libs/respJson";
 import { inv } from "../../models/invitados";
 import clc from "cli-color";
-import { sendMessage } from "config/rabbit/sent.message";
+import { sendMessage } from "../../config/rabbit/sent.message";
 
 export const ModifyGuests = async (req: Request, res: Response) => {
     try {
