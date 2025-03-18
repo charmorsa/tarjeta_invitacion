@@ -3,13 +3,20 @@ import * as nodemailer from 'nodemailer'
 import dotenv from 'dotenv'
 import path from "path"
 import { readFileSync } from "fs"
+import { logError } from "../models/logs.error"
+import { logRes } from "../models/logs.response"
+import { logReq } from "../models/logs.request"
 
 dotenv.config()
 const user = process.env.EMAILUSER
 const pass = process.env.EMAILPASS
 
 export async function sendEmail(receptor:string, subject:string, text:any) {
+    const dateRegister = new Date()
+    const data = {receptor:receptor, subject:subject, text:text}
     try {
+        await new logReq({user:"Sin Usuario", dateRegister, type:"Request sendEmail", data}).save()
+
         const transporter = nodemailer.createTransport({
             service: 'Gmail',
             auth: {
@@ -75,11 +82,14 @@ export async function sendEmail(receptor:string, subject:string, text:any) {
         transporter.sendMail(mailOptions, (error, info) => {
             if (error) {
                 console.log(clc.magenta('Error al enviar el correo:', error));
+                new logError({user:"Sin Usuario", dateRegister, type:"Error sendEmail", data:error}).save()
             } else {
                 console.log(clc.cyan('Correo enviado:', info.response));
+                new logRes({user:"Sin Usuario", dateRegister, type:"Response sendEmail", data:info.response}).save()
             }
         })
     } catch (error) {
         console.error(clc.red('Error, contactese con el administrador', error))
+        await new logError({user:"Sin Usuario", dateRegister, type:"Error sendEmail", data:error}).save()
     }
 }

@@ -1,6 +1,5 @@
 import { Request, Response } from "express"
 import { respJson } from "../libs/respJson"
-import { sendEmail } from "../config/send.email.controller"
 
 export const homePage =async (req:Request, res:Response) => {
     try {

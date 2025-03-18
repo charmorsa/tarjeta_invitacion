@@ -6,12 +6,17 @@ import {generateJWT} from '../libs/jwt'
 import clc from "cli-color"
 import { sendMessage } from "../config/rabbit/sent.message"
 import { startServer } from '../server/server'
+import { logReq } from "../models/logs.request"
+import { logRes } from "../models/logs.response"
+import { logError } from "../models/logs.error"
 
 const client = startServer()
 
 export const loginPage =async (req:Request, res:Response) => {
+    const { user, password } = req.body
+    const dateRegister = new Date()
     try {
-        const { user, password } = req.body
+        await new logReq({user, dateRegister, type:"Request Login", data:req.body}).save()
 
         const insert = await returnRedisDisplay(user)
         if(!insert) {
@@ -37,9 +42,14 @@ export const loginPage =async (req:Request, res:Response) => {
         let messages = `${email}_${type}_${text}`
         
         await sendMessage('cola', messages)
-        return respJson(res,200,true,{ token, user: {id: userSearch._id, name: userSearch.name} })
+
+        const data = {id: userSearch._id, name: userSearch.name}
+        await new logRes({user, dateRegister, type:"Response Login", data}).save()
+
+        return respJson(res,200,true,{ token, user:data })
     } catch (error) {
         console.error(clc.red('Error API Login ',error))
+        await new logError({user, dateRegister, type:"Error Login", data:error}).save()
         return respJson(res,500,false,{msg:'Error, contactese con el administrador'})
     }
 }
